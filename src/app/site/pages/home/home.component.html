@@ -1,3 +1,72 @@
 <p>
-  home works!
+  Is user logged in: {{loggedIn}}
 </p>
+<!-- <div *ngIf="loggedIn">
+  User is logged In
+</div>
+<div *ngIf="!loggedIn">
+  User is not logged In
+</div> -->
+<div *ngIf="loggedIn; else notLoggedInMessage">
+  User is logged In
+</div>
+<ng-template #notLoggedInMessage>
+  User is not logged in
+</ng-template>
+
+<div class="flex flex-col gap-1 pt-4">
+  <p class="font-bold text-blue-700">User Details</p>
+  <div class="" *ngIf="user != null; else userNotFoundMessage">
+    <div class="flex flex-row gap-1.5">
+      <p class="">User Id:</p>
+      {{user?.id || 'User not found'}}
+    </div>
+
+    <table *ngIf="user.favorites.length > 0; noFavoritesMessage">
+      <thead>
+        <th class="text-right">#</th>
+        <th class="px-2 text-right uppercase">productId</th>
+        <th class="px-2 uppercase">productName</th>
+        <th class="px-2 uppercase">Status</th>
+        <th class="px-2 uppercase">selectedOn</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let favorite of user.favorites; index as i">
+          <td class="text-right">{{i + 1}}</td>
+          <td class="px-2 text-right">{{favorite.productId}}</td>
+          <td class="px-2">{{favorite.productName}}</td>
+          <td class="px-2">
+            <div [ngSwitch]="favorite.ordered">
+              <ng-template [ngSwitchCase]="true">
+                <p class="text-green-500">Ordered</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="false">
+                <p class="text-red-700">Not Ordered</p>
+              </ng-template>
+            </div>
+          </td>
+          <td class="px-2">{{favorite.selectedOn || 'N/A'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noFavoritesMessage>
+      <p>No data found</p>
+    </ng-template>
+  </div>
+  <ng-template #userNotFoundMessage>
+    <p class="">User Not Found</p>
+  </ng-template>
+
+  <div [ngSwitch]="status">
+    <ng-template [ngSwitchCase]="'Pending'">
+      <p class="bg-yellow-400">Pending Order</p>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'Success'">
+      <p class="bg-green-400">Success Order</p>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'Cancelled'">
+      <p class="bg-red-400">Cancelled Order</p>
+    </ng-template>
+  </div>
+
+</div>

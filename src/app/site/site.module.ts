@@ -24,7 +24,7 @@ import { InsuranceComponent } from './pages/products/insurance/insurance.compone
   imports: [
     CommonModule,
     SiteRoutingModule,
-    
+
     ]
   })
 export class SiteModule { }
